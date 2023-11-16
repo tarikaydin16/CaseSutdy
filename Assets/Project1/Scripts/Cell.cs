@@ -7,11 +7,11 @@ public class Cell : MonoBehaviour
 {
     public bool hasX;
     public bool visited;
-    private GridManager gridManager;
+    private GridManagerWithNoCanvas gridManager;
     private int x, y;
-    public TextMeshProUGUI buttonText;
+    public TMP_Text buttonText;
 
-    public void Init(GridManager gridManager, int x, int y)
+    public void Init(GridManagerWithNoCanvas gridManager, int x, int y)
     {
         this.gridManager = gridManager;
         this.x = x;
@@ -22,7 +22,6 @@ public class Cell : MonoBehaviour
     {
         hasX = true;
         buttonText.text = "X";
-        //gridManager.CheckForMatches(x, y);
 
         gridManager.FindAndPrintXGroups(x,y);
 

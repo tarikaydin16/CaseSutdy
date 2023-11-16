@@ -69,7 +69,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject cell= Instantiate(cellPrefab, transform);
                 grid[i, j] = cell.GetComponent<Cell>();
-                grid[i, j].Init(this, i, j);
+                //grid[i, j].Init(this, i, j);
 
             }
         }
