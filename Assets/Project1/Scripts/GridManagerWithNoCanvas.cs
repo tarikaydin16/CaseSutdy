@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,6 +28,8 @@ namespace Project1
         public Transform startPosition;
 
         public Vector3 gridCenterOffset;
+
+        public Action MatchAction;
         private void OnEnable()
         {
             canvasManager.rebuildAction += GenerateGrid;
@@ -141,6 +144,7 @@ namespace Project1
                 return;
             }
             print(findedCells.Count);
+            MatchAction?.Invoke();
             foreach (Cell item in findedCells)
             {
                 item.Clear();

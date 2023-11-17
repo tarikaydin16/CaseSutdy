@@ -11,6 +11,7 @@ namespace Project1
     public class GameController : MonoBehaviour
     {
         [Inject] InputHandler inputHandler;
+        public int matchCount;
         private void OnEnable()
         {
             inputHandler.MouseClickAction += OnClicked;
