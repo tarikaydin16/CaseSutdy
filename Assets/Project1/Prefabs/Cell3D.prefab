@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1284037835093426119}
   - component: {fileID: 1284037835093426136}
   - component: {fileID: 3909578658431378470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cell3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 606774206515150287}
   - component: {fileID: 6974211544161952045}
   - component: {fileID: 1982293979742685541}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

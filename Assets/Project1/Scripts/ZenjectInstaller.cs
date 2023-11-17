@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-
-public class ZenjectInstaller : MonoInstaller
+namespace Project1
 {
-    public CanvasManager canvasManager;
-    public override void InstallBindings()
+    public class ZenjectInstaller : MonoInstaller
     {
-        Container.Bind<CanvasManager>().FromInstance(canvasManager).AsSingle();
+        public CanvasManager canvasManager;
+        public GridManagerWithNoCanvas gridManager;
+        public InputHandler inputHandler;
+        public override void InstallBindings()
+        {
+            Container.Bind<CanvasManager>().FromInstance(canvasManager).AsSingle();
+            Container.Bind<GridManagerWithNoCanvas>().FromInstance(gridManager).AsSingle();
+            Container.Bind<InputHandler>().FromInstance(inputHandler).AsSingle();
+        }
     }
 }

@@ -1,28 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class WorldCanvasResizer : MonoBehaviour
+namespace Project1
 {
-    private Canvas canvas;
-    void Start()
+    public class WorldCanvasResizer : MonoBehaviour
     {
-        canvas=GetComponent<Canvas>();
-        ResizeWorldSpaceCanvas();
+        private Canvas canvas;
+        void Start()
+        {
+            canvas = GetComponent<Canvas>();
+            ResizeWorldSpaceCanvas();
 
-    }
+        }
 
-    void ResizeWorldSpaceCanvas()
-    {
-       
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        void ResizeWorldSpaceCanvas()
+        {
 
-        Camera mainCamera = Camera.main;
-        float distance = Vector3.Distance(canvasRect.position, mainCamera.transform.position);
-        float aspectRatio = mainCamera.aspect;
-        float canvasSize = 2f * distance * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-        float canvasWidth = canvasSize * aspectRatio;
+            RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
-        canvasRect.sizeDelta = new Vector2(canvasWidth, canvasSize);
+            Camera mainCamera = Camera.main;
+            float distance = Vector3.Distance(canvasRect.position, mainCamera.transform.position);
+            float aspectRatio = mainCamera.aspect;
+            float canvasSize = 2f * distance * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            float canvasWidth = canvasSize * aspectRatio;
+
+            canvasRect.sizeDelta = new Vector2(canvasWidth, canvasSize);
+        }
     }
 }
