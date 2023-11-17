@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55149cca8b32be4f8b8f61e2f07d0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matchCount: 0
 --- !u!4 &68974874
 Transform:
   m_ObjectHideFlags: 0
@@ -1346,7 +1347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rebuildButton: {fileID: 1599812323}
   inputField: {fileID: 1187241415}
-  ratio: 0.49
   canvas: {fileID: 1599093651}
   staticsText: {fileID: 378676777}
 --- !u!1 &1599812321
@@ -1655,7 +1655,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 1284037835093426137, guid: ae52658dda8bcfa42bc167b6d8d56e1f, type: 3}
   cellSizeMultiplier: 1
   offset: 0.02
-  startPosition: {fileID: 1573623451}
+  centerPosition: {fileID: 2111767181}
   gridCenterOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1807552837
 GameObject:
