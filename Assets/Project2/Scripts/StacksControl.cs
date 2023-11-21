@@ -61,13 +61,9 @@ namespace Project2
             print("on vlick " + a.name + b.name);
             float x = CheckXIntersection(a, b);
             print(CheckXIntersection(a, b));
-            //print("on nameee1 " + spawner.GetLastStack().name+ spawner.GetPreviousStack(GetLastStack()).name);
 
             DivideObject(a, x);
 
-            //print("on nameee2 " + spawner.GetLastStack().name + spawner.GetPreviousStack(GetLastStack()).name);/**/
-
-            //spawner.GetLastStack().transform.localScale = spawner.GetPreviousStack(GetLastStack()).transform.localScale;/**/
 
         }
         public Stack GetLastStack() { return lastStack; }
@@ -76,7 +72,7 @@ namespace Project2
             if (value == 0) return;
             bool isLeftFallingObject = !(value < 0);
 
-
+            value *= refrence.transform.localScale.x;
             var fallingSize = refrence.transform.localScale;
             fallingSize.x = Mathf.Abs(value);
             var fallingPosition = GetPositionEdge(refrence.GetComponent<MeshRenderer>(), isLeftFallingObject ? Direction.Left : Direction.Right);
@@ -90,7 +86,6 @@ namespace Project2
             var standSize = refrence.transform.localScale;
             standSize.x = refrence.transform.localScale.x - Mathf.Abs(value);
             var standPosition = GetPositionEdge(refrence.GetComponent<MeshRenderer>(), !isLeftFallingObject ? Direction.Left : Direction.Right);
-            print(standPosition);
 
 
             standPosition.x += (standSize.x / 2) * (!isLeftFallingObject ? 1 : -1);

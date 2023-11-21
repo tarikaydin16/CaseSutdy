@@ -16,30 +16,27 @@ namespace Project2
     }
     public class Stack : MonoBehaviour
     {
-        MeshRenderer mesh;
         public float amplitude = 1.0f; // Genlik
         public float frequency = 1.0f; // Frekans
         public float speed = 1.0f; // Hýz
         private Vector3 initialPosition;
       
         public State state;
-
+        float time = 0;
         private void Start()
         {
-                    mesh=GetComponent<MeshRenderer>(); 
 
             initialPosition = transform.position;
         }
         public void SetStack() { 
             state = State.SPAWNED;
 
-          
-            //IntersectAndKeepX(StacksControl.instance.GetLastStack().gameObject,gameObject );
         }
         private void Update()
         {
+            time+= Time.deltaTime;
             if (state == State.MOVE_HORIZONTAL) {
-                float t = Mathf.PingPong(Time.time * speed, 1.0f);
+                float t = Mathf.PingPong(time * speed, 1.0f);
                 float xValue = initialPosition.x + Mathf.Lerp(-amplitude, amplitude,t) ;
                 transform.position = new Vector3(xValue, initialPosition.y, initialPosition.z);
 

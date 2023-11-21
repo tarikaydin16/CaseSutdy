@@ -21,7 +21,7 @@ namespace Project2
 
         public void SpawnStack()
         {
-            GameObject stackGo = Instantiate(StacksControl.instance.stackPrefab, new Vector3(0, -0.57f, (stacks.Count)) + spawnPos, Quaternion.identity);
+            GameObject stackGo = Instantiate(StacksControl.instance.stackPrefab, new Vector3(0, -0.57f, (stacks.Count) * StacksControl.instance.stackPrefab.transform.localScale.z) + spawnPos, Quaternion.identity);
             stackGo.name += counter;
             StacksControl.instance.id = counter;
 
