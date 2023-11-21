@@ -1,31 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using Zenject;
+
 namespace Project2
 {
    public enum State
     {
         MOVE_HORIZONTAL, SPAWNED
     }
+    public enum Direction
+    {
+        Left, Right, Front, Back
+    }
     public class Stack : MonoBehaviour
     {
-        public GameObject stackPrefab;
         MeshRenderer mesh;
         public float amplitude = 1.0f; // Genlik
         public float frequency = 1.0f; // Frekans
         public float speed = 1.0f; // Hýz
         private Vector3 initialPosition;
-    
+      
         public State state;
 
         private void Start()
         {
+                    mesh=GetComponent<MeshRenderer>(); 
+
             initialPosition = transform.position;
         }
         public void SetStack() { 
             state = State.SPAWNED;
-             
 
+          
+            //IntersectAndKeepX(StacksControl.instance.GetLastStack().gameObject,gameObject );
         }
         private void Update()
         {
@@ -37,29 +46,6 @@ namespace Project2
             }
 
         }
-        private void DivideObject(float value)
-        {
-            var fallingObject = Instantiate(stackPrefab);
-            var fallingSize = transform.localScale;
-            fallingSize.x = value;
-            fallingObject.transform.localScale = fallingSize;
-
-            var standObject = Instantiate(stackPrefab);
-            var standSize = transform.localScale;
-            standSize.x = transform.localScale.x- value;
-            standObject.transform.localScale = standSize;
-            print(GetPositionEdge(mesh));
-        }
-
-        private Vector3 GetPositionEdge(MeshRenderer mesh) {
-            var extends = mesh.bounds.extents;
-            var position = mesh.transform.position;
-
-            position.x += extends.x;
-            position.z += extends.z;
-
-
-            return position;
-        }
+     
     }
 }

@@ -1220,7 +1220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69fd71a01d4aff46a3ad5a5bf232f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastStack: {fileID: 0}
+  lastStack: {fileID: 478499045}
+  stackPrefab: {fileID: 6812770722432222089, guid: 571c4b5dbcc33114c9a1b20860d8bb06, type: 3}
 --- !u!4 &194293296
 Transform:
   m_ObjectHideFlags: 0
@@ -2305,6 +2306,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469568394}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &478499045 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6812770722432222092, guid: 571c4b5dbcc33114c9a1b20860d8bb06, type: 3}
+  m_PrefabInstance: {fileID: 1896621381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d287a9ebb32234793e93f1bd0fa835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &489402139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,8 +3122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850118a45b5fe8e4686a4eef6504b4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stackPrefab: {fileID: 6812770722432222089, guid: 571c4b5dbcc33114c9a1b20860d8bb06, type: 3}
-  _stack: {fileID: 0}
+  stacks:
+  - {fileID: 478499045}
   spawnPos: {x: 0, y: 0, z: 8}
 --- !u!4 &539128250
 Transform:

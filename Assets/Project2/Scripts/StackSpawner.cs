@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,22 +8,55 @@ namespace Project2
 {
     public class StackSpawner : MonoBehaviour
     {
-        public GameObject stackPrefab;
-        public GameObject _stack;
 
-        List<GameObject> stacks= new List<GameObject>();
+        [SerializeField]List<Stack> stacks= new List<Stack>();
         public Vector3 spawnPos = new Vector3(0, 0, 8);
+        public Action<Stack> SpawnedStack;
+        int counter = 0;
         private void Start()
         {
             SpawnStack();
         }
-  
- 
-        public void SpawnStack() {
-            _stack=Instantiate(stackPrefab,new Vector3(0, -0.57f,(stacks.Count+1))+spawnPos,Quaternion.identity);
-            stacks.Add(_stack);
 
 
+        public void SpawnStack()
+        {
+            GameObject stackGo = Instantiate(StacksControl.instance.stackPrefab, new Vector3(0, -0.57f, (stacks.Count)) + spawnPos, Quaternion.identity);
+            stackGo.name += counter;
+            StacksControl.instance.id = counter;
+
+            counter++;
+
+            AppendStackToList(stackGo.GetComponent<Stack>(), true);
+
+        }
+
+        public void AppendStackToList(Stack stack,bool addNewElement) {
+            if (addNewElement)
+            {
+                stacks.Add(stack);
+            }
+            else
+            {
+                stacks[stacks.Count - 2].gameObject.SetActive(false);
+                stacks[stacks.Count - 2] = (stack);
+            }
+            SpawnedStack?.Invoke(stack);
+        }
+        public GameObject SpawnStackPiece(Vector3 postion,Vector3 scale) {
+            var stackPiece = Instantiate(StacksControl.instance.stackPrefab, postion, Quaternion.identity);
+            stackPiece.GetComponent<Stack>().state = State.SPAWNED;
+            stackPiece.transform.localScale = scale;
+            return stackPiece;
+        }
+
+        public Stack GetPreviousStack(Stack stack) { 
+           int index=stacks.IndexOf(stack);
+                return stacks[index-1];
+        }
+        public Stack GetLastStack()
+        {
+            return stacks[stacks.Count - 1];
         }
     }
 }
