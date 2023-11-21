@@ -58,7 +58,6 @@ namespace Project2
 
             GameObject a = GetLastStack().gameObject;
             GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
-            print("on vlick " + a.name + b.name);
             float x = CheckXIntersection(a, b);
             print(CheckXIntersection(a, b));
 
@@ -69,7 +68,12 @@ namespace Project2
         public Stack GetLastStack() { return lastStack; }
         private void DivideObject(GameObject refrence,float value)
         {
+            bool pass = false;
             if (value == 0) return;
+            if (Mathf.Abs(value) >= 0.95) { 
+                value = 1 * Mathf.Sign(value);
+                pass = true;
+            }
             bool isLeftFallingObject = !(value < 0);
 
             value *= refrence.transform.localScale.x;
@@ -81,20 +85,23 @@ namespace Project2
 
 
 
+            if (!pass)
+            {
+
+                var standSize = refrence.transform.localScale;
+                standSize.x = refrence.transform.localScale.x - Mathf.Abs(value);
+                var standPosition = GetPositionEdge(refrence.GetComponent<MeshRenderer>(), !isLeftFallingObject ? Direction.Left : Direction.Right);
 
 
-            var standSize = refrence.transform.localScale;
-            standSize.x = refrence.transform.localScale.x - Mathf.Abs(value);
-            var standPosition = GetPositionEdge(refrence.GetComponent<MeshRenderer>(), !isLeftFallingObject ? Direction.Left : Direction.Right);
+                standPosition.x += (standSize.x / 2) * (!isLeftFallingObject ? 1 : -1);
+                GameObject obj2 = spawner.SpawnStackPiece(standPosition, standSize);
+                obj2.AddComponent<Rigidbody>();
+                obj2.name = "stand" + id;
 
 
-            standPosition.x += (standSize.x / 2) * (!isLeftFallingObject ? 1 : -1);
-            GameObject obj2= spawner.SpawnStackPiece(standPosition, standSize);
 
-
-            //obj2.AddComponent<Rigidbody>();
+            }
             obj1.name = "falling"+id;
-            obj2.name = "stand"+id;
             lastStack = obj1.GetComponent<Stack>();
             spawner.AppendStackToList(lastStack,false);
             spawner.GetLastStack().transform.localScale = fallingSize;

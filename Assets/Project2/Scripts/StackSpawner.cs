@@ -58,5 +58,8 @@ namespace Project2
         {
             return stacks[stacks.Count - 1];
         }
+        public int StacksCount() {
+        return stacks.Count;
+        }
     }
 }

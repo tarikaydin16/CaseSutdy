@@ -23,10 +23,12 @@ namespace Project2
       
         public State state;
         float time = 0;
+        static int counter=0;
         private void Start()
         {
 
             initialPosition = transform.position;
+        counter++;
         }
         public void SetStack() { 
             state = State.SPAWNED;
@@ -37,7 +39,12 @@ namespace Project2
             time+= Time.deltaTime;
             if (state == State.MOVE_HORIZONTAL) {
                 float t = Mathf.PingPong(time * speed, 1.0f);
-                float xValue = initialPosition.x + Mathf.Lerp(-amplitude, amplitude,t) ;
+                float xValue;
+                if (counter % 2 == 0)
+                    xValue = initialPosition.x + Mathf.Lerp(amplitude, -amplitude, t);
+                else 
+                    xValue = initialPosition.x + Mathf.Lerp(-amplitude, amplitude, t);
+
                 transform.position = new Vector3(xValue, initialPosition.y, initialPosition.z);
 
             }
