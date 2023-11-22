@@ -23,12 +23,12 @@ namespace Project2
       
         public State state;
         float time = 0;
-        static int counter=0;
+       public static int counter=0;
         private void Start()
         {
 
             initialPosition = transform.position;
-        counter++;
+ 
         }
         public void SetStack() { 
             state = State.SPAWNED;

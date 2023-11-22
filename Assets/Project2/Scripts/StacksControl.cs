@@ -15,6 +15,8 @@ namespace Project2
 
         public static StacksControl instance;
         public int id = 0;
+        [SerializeField] AudioSource source;
+        float pitch=.3f;
         private void Awake()
         {
             if (instance == null)
@@ -55,7 +57,7 @@ namespace Project2
 
             spawner.SpawnStack();
 
-
+           
             GameObject a = GetLastStack().gameObject;
             GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
             float x = CheckXIntersection(a, b);
@@ -73,6 +75,10 @@ namespace Project2
             if (Mathf.Abs(value) >= 0.95) { 
                 value = 1 * Mathf.Sign(value);
                 pass = true;
+                source.pitch = pitch;
+                source.Play();
+
+                pitch += .1f;
             }
             bool isLeftFallingObject = !(value < 0);
 
@@ -99,10 +105,18 @@ namespace Project2
                 obj2.name = "stand" + id;
 
 
-
+                pitch = 0.3f;
             }
+            else {
+                GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
+                lastStack = obj1.GetComponent<Stack>();
+
+                lastStack.transform.position = new Vector3(b.transform.position.x, lastStack.transform.position.y, lastStack.transform.position.z);
+            }
+            Stack.counter++;
             obj1.name = "falling"+id;
             lastStack = obj1.GetComponent<Stack>();
+
             spawner.AppendStackToList(lastStack,false);
             spawner.GetLastStack().transform.localScale = fallingSize;
             refrence.SetActive(false);
