@@ -58,14 +58,15 @@ namespace Project2
         }
         private void OnClick()
         {
-    
+
+            StackSpawner.counter++;
 
 
             spawner. GetLastStack().SetStack();
 
             spawner.SpawnStack();
-            
-            
+
+
             GameObject a = GetLastStack().gameObject;
             GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
             float x = CheckXIntersection(a, b);
@@ -110,7 +111,6 @@ namespace Project2
                 standPosition.x += (standSize.x / 2) * (!isLeftFallingObject ? 1 : -1);
                 GameObject obj2 = spawner.SpawnStackPiece(standPosition, standSize);
                 obj2.AddComponent<Rigidbody>();
-                obj2.name = "stand" + id;
 
 
                 pitch = 0.3f;
@@ -122,13 +122,12 @@ namespace Project2
                 lastStack.transform.position = new Vector3(b.transform.position.x, lastStack.transform.position.y, lastStack.transform.position.z);
             }
             Stack.counter++;
-            StackSpawner.counter++;
-            obj1.name = "falling"+id;
+
             lastStack = obj1.GetComponent<Stack>();
 
             spawner.AppendStackToList(lastStack,false);
             spawner.GetLastStack().transform.localScale = fallingSize;
-            refrence.SetActive(false);
+            spawner.ReturnObjectToPool(refrence);
 
 
         }

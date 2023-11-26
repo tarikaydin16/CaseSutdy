@@ -16,9 +16,9 @@ namespace Project2
     }
     public class Stack : MonoBehaviour
     {
-        public float amplitude = 1.0f; // Genlik
-        public float frequency = 1.0f; // Frekans
-        public float speed = 1.0f; // Hýz
+        public float amplitude = 1.0f; 
+        public float frequency = 1.0f; 
+        public float speed = .5f;
         private Vector3 initialPosition;
 
         public State state;
@@ -29,10 +29,14 @@ namespace Project2
 
         private void Start()
         {
-
-            initialPosition = transform.position;
             renderer = GetComponent<Renderer>();
             propertyBlock = new MaterialPropertyBlock();
+        }
+        private void OnEnable()
+        {
+
+            initialPosition = transform.position;
+            time = 0;
          
 
         }
@@ -66,6 +70,7 @@ namespace Project2
             }
 
         }
+    
      
     }
 }
