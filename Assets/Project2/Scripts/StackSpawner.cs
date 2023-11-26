@@ -12,7 +12,7 @@ namespace Project2
         [SerializeField]List<Stack> stacks= new List<Stack>();
         public Vector3 spawnPos = new Vector3(0, 0, 8);
         public Action<Stack> SpawnedStack;
-        int counter = 0;
+        public static int counter = 0;
         private void Start()
         {
             SpawnStack();
@@ -21,16 +21,16 @@ namespace Project2
 
         public void SpawnStack()
         {
+
             GameObject stackGo = Instantiate(StacksControl.instance.stackPrefab, new Vector3(0, -0.57f, (stacks.Count) * StacksControl.instance.stackPrefab.transform.localScale.z) + spawnPos, Quaternion.identity);
             stackGo.name += counter;
             StacksControl.instance.id = counter;
-
-            counter++;
+            stackGo.GetComponent<Stack>(). SetColor(StacksControl.instance.GetColor(counter+1));
 
             AppendStackToList(stackGo.GetComponent<Stack>(), true);
 
         }
-
+       
         public void AppendStackToList(Stack stack,bool addNewElement) {
             if (addNewElement)
             {
@@ -46,6 +46,8 @@ namespace Project2
         public GameObject SpawnStackPiece(Vector3 postion,Vector3 scale) {
             var stackPiece = Instantiate(StacksControl.instance.stackPrefab, postion, Quaternion.identity);
             stackPiece.GetComponent<Stack>().state = State.SPAWNED;
+            stackPiece.GetComponent<Stack>().SetColor(StacksControl.instance.GetColor(counter));
+
             stackPiece.transform.localScale = scale;
             return stackPiece;
         }

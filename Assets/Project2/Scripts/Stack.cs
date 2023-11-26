@@ -20,18 +20,34 @@ namespace Project2
         public float frequency = 1.0f; // Frekans
         public float speed = 1.0f; // Hýz
         private Vector3 initialPosition;
-      
+
         public State state;
         float time = 0;
-       public static int counter=0;
+        public static int counter = 0;
+        private MaterialPropertyBlock propertyBlock;
+        private Renderer renderer;
+
         private void Start()
         {
 
             initialPosition = transform.position;
- 
+            renderer = GetComponent<Renderer>();
+            propertyBlock = new MaterialPropertyBlock();
+         
+
         }
-        public void SetStack() { 
+        public void SetStack() {
             state = State.SPAWNED;
+
+        }
+        public void SetColor(Color color) {
+            if(propertyBlock==null) propertyBlock = new MaterialPropertyBlock();
+            renderer = GetComponent<Renderer>();
+
+          
+            propertyBlock.SetColor("_Color", color);
+
+            renderer.SetPropertyBlock(propertyBlock);
 
         }
         private void Update()

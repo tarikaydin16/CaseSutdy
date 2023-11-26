@@ -17,6 +17,11 @@ namespace Project2
         public int id = 0;
         [SerializeField] AudioSource source;
         float pitch=.3f;
+
+        Color lastColor;
+        public Color[] colors = new Color[91];
+        public int numberOfColors = 100;
+        public float smoothness = 0.01f; 
         private void Awake()
         {
             if (instance == null)
@@ -27,6 +32,9 @@ namespace Project2
             else { 
                 Destroy(gameObject);
             }
+
+            GenerateSmoothColorArray();
+
         }
         private void OnEnable()
         {
@@ -56,8 +64,8 @@ namespace Project2
             spawner. GetLastStack().SetStack();
 
             spawner.SpawnStack();
-
-           
+            
+            
             GameObject a = GetLastStack().gameObject;
             GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
             float x = CheckXIntersection(a, b);
@@ -114,12 +122,14 @@ namespace Project2
                 lastStack.transform.position = new Vector3(b.transform.position.x, lastStack.transform.position.y, lastStack.transform.position.z);
             }
             Stack.counter++;
+            StackSpawner.counter++;
             obj1.name = "falling"+id;
             lastStack = obj1.GetComponent<Stack>();
 
             spawner.AppendStackToList(lastStack,false);
             spawner.GetLastStack().transform.localScale = fallingSize;
             refrence.SetActive(false);
+
 
         }
 
@@ -172,5 +182,46 @@ namespace Project2
 
             return position;
         }
+
+        public Color GetColor( int index) {
+          
+            return colors[index%colors.Length];
+        
+        }
+        void GenerateSmoothColorArray()
+        {
+            Color randomColor= new Color(Random.value + .1f, Random.value + .1f, Random.value + .1f);
+            for (int i = 0; i < 10; i++)
+            {
+
+                randomColor = new Color(Random.value + .1f, Random.value + .1f, Random.value + .1f);
+                colors[i*10] = randomColor;
+
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++) {
+                    if (i != 9)
+                    {
+                        Color color = Color.Lerp( colors[(i + 1) * 10], colors[i * 10],1- (float)j / 10f);
+                        
+                         colors[9*i + j] = color;
+                    }
+                    else
+                    {
+                        Color color = Color.Lerp(colors[0], colors[i * 10], 1 - (float)j / 10f);
+
+                        colors[9 * i + j] = color;
+                    }
+
+                }
+
+
+            }
+
+      
+        }
+
+
     }
 }
