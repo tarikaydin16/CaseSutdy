@@ -11,6 +11,7 @@ namespace Project2
         [SerializeField] Stack lastStack;/**/
         [Inject] InputHandler inputHandler;
         [Inject] StackSpawner spawner;
+        [Inject] GameManager gameManager;
         public GameObject stackPrefab;
 
         public static StacksControl instance;
@@ -71,7 +72,12 @@ namespace Project2
             GameObject b = spawner.GetPreviousStack(GetLastStack()).gameObject;
             float x = CheckXIntersection(a, b);
             print(CheckXIntersection(a, b));
+            if (x == 0f) {
+                //GetLastStack().gameObject.SetActive(false);
+                gameManager.LevelFailed?.Invoke();
+                spawner.GetLastStack().gameObject.SetActive(false);
 
+            }
             DivideObject(a, x);
 
 

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
+
 namespace Project2
 {
     /// <summary>
@@ -18,6 +20,8 @@ namespace Project2
         /// TouchControls instance for managing touch input.
         /// </summary>
         TouchControls touchControls;
+        [Inject] GameManager gameManager;
+        float lastTouchTime;
         /// <summary>
         /// Initializes the TouchControls instance on Awake.
         /// </summary>
@@ -56,11 +60,14 @@ namespace Project2
         /// <param name="ctx">Callback context of the touch event.</param>
         private void StartTouch(InputAction.CallbackContext ctx)
         {
+            if (gameManager.IsGameFinished || Mathf.Abs(Time.time-lastTouchTime)<0.1f) return;
             // Read the touch position from the TouchPosition control
             Vector2 touchPos = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
             MouseClickAction?.Invoke();
+            lastTouchTime = Time.time;
 
-       
+
+
         }
 
      

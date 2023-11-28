@@ -26,6 +26,7 @@ namespace Project2
         public static int counter = 0;
         private MaterialPropertyBlock propertyBlock;
         private Renderer renderer;
+        public bool isFristStack;
 
         private void Start()
         {
@@ -62,7 +63,7 @@ namespace Project2
                 float xValue;
                 if (counter % 2 == 0)
                     xValue = initialPosition.x + Mathf.Lerp(amplitude, -amplitude, t);
-                else 
+                else
                     xValue = initialPosition.x + Mathf.Lerp(-amplitude, amplitude, t);
 
                 transform.position = new Vector3(xValue, initialPosition.y, initialPosition.z);

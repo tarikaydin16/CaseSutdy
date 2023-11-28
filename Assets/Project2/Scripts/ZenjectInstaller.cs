@@ -11,11 +11,15 @@ namespace Project2
         public StacksControl stacksControl;
         public InputHandler inputHandler;
         public StackSpawner stackSpawner;
+        public GameManager gameManager;
+        public CanvasManager canvasManager;
         public override void InstallBindings()
         {
             Container.Bind<StacksControl>().FromInstance(stacksControl).AsSingle();
             Container.Bind<InputHandler>().FromInstance(inputHandler).AsSingle();
             Container.Bind<StackSpawner>().FromInstance(stackSpawner).AsSingle();
+            Container.Bind<GameManager>().FromInstance(gameManager).AsSingle();
+            Container.Bind<CanvasManager>().FromInstance(canvasManager).AsSingle();
         }
     }
 }

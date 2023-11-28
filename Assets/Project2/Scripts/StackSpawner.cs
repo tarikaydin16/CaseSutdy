@@ -10,21 +10,44 @@ namespace Project2
     public class StackSpawner : MonoBehaviour
     {
 
-        [SerializeField]List<Stack> stacks= new List<Stack>();
+        [SerializeField] List<Stack> stacks = new List<Stack>();
         public Vector3 spawnPos = new Vector3(0, 0, 8);
         public Action<Stack> SpawnedStack;
         public static int counter = 0;
         public int poolSize = 10;
-        public  List<GameObject> objectPool = new List<GameObject>();
-
+        public List<GameObject> objectPool = new List<GameObject>();
+        [Inject] GameManager gameManager;
+        Vector3 resetSize = new Vector3(3, 0.5f, 2f);
         private void Start()
         {
             SpawnStack();
             InitializePool();
 
         }
+        private void OnEnable()
+        {
+            gameManager.LevelPassed += OnLevelPassed;
+        }
+        private void OnDisable()
+        {
+            gameManager.LevelPassed -= OnLevelPassed;
 
 
+        }
+        void OnLevelPassed() {
+            counter += 1;
+            Stack.counter += 1;
+            SpawnStack();
+            foreach (Stack stack in stacks)
+            {
+                stack.transform.localScale = resetSize;
+                stack.transform.transform.position =new Vector3(0,stack.transform.transform.position.y, stack.transform.transform.position.z);
+                stack.isFristStack = true;
+                stack.state = State.SPAWNED;
+
+            }
+      
+        }
         void InitializePool()
         {
 
@@ -38,6 +61,7 @@ namespace Project2
         public void ReturnObjectToPool(GameObject obj)
         {
             Stack stack = obj.GetComponent<Stack>();
+            if (stack == null) return;
             Rigidbody rb = obj.GetComponent<Rigidbody>();
             objectPool.Add(obj);
             if (stacks.Contains(stack))
