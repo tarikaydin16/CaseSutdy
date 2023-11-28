@@ -102,7 +102,6 @@ namespace Project2
                 
                 GoToTarget(lastStack.transform.position);
             }
-            print($"{Stack.counter} == {gameManager.HowMuchPlatform()}");
             if (Stack.counter == gameManager.HowMuchPlatform()) {
                 GoToTarget(gameManager.finishedPlatform.transform.position);
                 transform.DOMove(gameManager.finishedPlatform.transform.position, 1).OnComplete(() => {

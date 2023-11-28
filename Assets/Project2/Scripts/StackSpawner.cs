@@ -153,7 +153,6 @@ namespace Project2
             stackGo.name += counter;
             StacksControl.instance.id = counter;
             stackGo.GetComponent<Stack>(). SetColor(StacksControl.instance.GetColor(counter+1));
-            print($"counter {counter}");
             AppendStackToList(stackGo.GetComponent<Stack>(), true);
 
         }

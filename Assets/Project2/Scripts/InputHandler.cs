@@ -63,7 +63,6 @@ namespace Project2
             if (gameManager.IsGameFinished || Mathf.Abs(Time.time-lastTouchTime)<0.1f) return;
             Vector2 touchPos = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
             MouseClickAction?.Invoke();
-            print("Click");
             lastTouchTime = Time.time;
 
 
