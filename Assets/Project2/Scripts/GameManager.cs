@@ -46,6 +46,8 @@ namespace Project2
         private void Start()
         {
             print(HowMuchPlatform());
+            finishedPlatform.transform.position = new Vector3(finishedPlatform.transform.position.x, finishedPlatform.transform.position.y, DistanceToFinish());
+
         }
         private void OnEnable()
         {
@@ -118,9 +120,9 @@ namespace Project2
         }
         public float DistanceToFinish()
         {
-            int howMuchPlatform =(int) Mathf.Pow(1.5f, level)  * 10;
+            //int howMuchPlatform =(int) Mathf.Pow(1.5f, level)  * 10;
 
-            return startZ+ howMuchPlatform * 2;
+            return startZ + level * 24;//startZ+ howMuchPlatform * 2;
 
         }
         public int HowMuchPlatform()
@@ -133,10 +135,10 @@ namespace Project2
             level++;
             canvasManager.OpenPanel(CanvasPanelEnum.NONE);
             ActiveCamera(CameraType.GamePlayCamera);
-            startZ = finishedPlatform.transform.position.z;
+            startZ = finishedPlatform.transform.position.z+2;
             StartNextLevel?.Invoke();
             //StackSpawner.counter = 0;
-            Stack.counter    = 1;
+            Stack.counter    = 0;
 
         }
     }
