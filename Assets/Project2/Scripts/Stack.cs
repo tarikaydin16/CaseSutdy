@@ -6,26 +6,64 @@ using Zenject;
 
 namespace Project2
 {
-   public enum State
+    /// <summary>
+    /// Enum representing the possible states of the stack.
+    /// </summary>
+    public enum State
     {
         MOVE_HORIZONTAL, SPAWNED
     }
+    /// <summary>
+    /// Enum representing the possible movement directions of the stack.
+    /// </summary>
     public enum Direction
     {
         Left, Right, Front, Back
     }
+    /// <summary>
+    /// Class representing the stack in the game.
+    /// </summary>
     public class Stack : MonoBehaviour
     {
-        public float amplitude = 1.0f; 
-        public float frequency = 1.0f; 
+        /// <summary>
+        /// Amplitude of the stack movement.
+        /// </summary>
+        public float amplitude = 1.0f;
+        /// <summary>
+        /// Frequency of the stack movement.
+        /// </summary>
+        public float frequency = 1.0f;
+        /// <summary>
+        /// Speed of the stack movement.
+        /// </summary>
         public float speed = .5f;
+        /// <summary>
+        /// Initial position of the stack.
+        /// </summary>
         private Vector3 initialPosition;
-
+        /// <summary>
+        /// Current state of the stack.
+        /// </summary>
         public State state;
+        /// <summary>
+        /// Timer used for the stack movement.
+        /// </summary>
         float time = 0;
+        /// <summary>
+        /// Counter to track the number of stacks.
+        /// </summary>
         public static int counter = 0;
+        /// <summary>
+        /// Material property block for modifying the stack color.
+        /// </summary>
         private MaterialPropertyBlock propertyBlock;
+        /// <summary>
+        /// Reference to the stack renderer.
+        /// </summary>
         private Renderer renderer;
+        /// <summary>
+        /// Flag indicating if this is the first stack.
+        /// </summary>
         public bool isFristStack;
 
         private void Start()
@@ -33,6 +71,9 @@ namespace Project2
             renderer = GetComponent<Renderer>();
             propertyBlock = new MaterialPropertyBlock();
         }
+        /// <summary>
+        /// Initializes the stack when it is enabled.
+        /// </summary>
         private void OnEnable()
         {
 
@@ -41,10 +82,17 @@ namespace Project2
          
 
         }
+        /// <summary>
+        /// Sets the state of the stack to SPAWNED.
+        /// </summary>
         public void SetStack() {
             state = State.SPAWNED;
 
         }
+        /// <summary>
+        /// Sets the color of the stack.
+        /// </summary>
+        /// <param name="color">The color to set.</param>
         public void SetColor(Color color) {
             if(propertyBlock==null) propertyBlock = new MaterialPropertyBlock();
             renderer = GetComponent<Renderer>();
@@ -55,6 +103,9 @@ namespace Project2
             renderer.SetPropertyBlock(propertyBlock);
 
         }
+        /// <summary>
+        /// Updates the stack movement and color.
+        /// </summary>
         private void Update()
         {
             time+= Time.deltaTime;

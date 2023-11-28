@@ -6,29 +6,67 @@ using Zenject;
 
 namespace Project2
 {
+    /// <summary>
+    /// Class controlling the stacks in the game.
+    /// </summary>
     public class StacksControl : MonoBehaviour
     {
-        [SerializeField] Stack lastStack;/**/
+        /// <summary>
+        /// Reference to the last stack spawned.
+        /// </summary>
+        [SerializeField] Stack lastStack;
+        /// <summary>
+        /// Reference to the InputHandler injected dependency.
+        /// </summary>
         [Inject] InputHandler inputHandler;
+        /// <summary>
+        /// Reference to the StackSpawner injected dependency.
+        /// </summary>
         [Inject] StackSpawner spawner;
+        /// <summary>
+        /// Reference to the GameManager injected dependency.
+        /// </summary>
         [Inject] GameManager gameManager;
+        /// <summary>
+        /// Reference to the stack prefab.
+        /// </summary>
         public GameObject stackPrefab;
-
+        /// <summary>
+        /// Static instance of the StacksControl class.
+        /// </summary>
         public static StacksControl instance;
+        /// <summary>
+        /// Unique identifier for the instance.
+        /// </summary>
         public int id = 0;
+        /// <summary>
+        /// Audio source for stack-related sounds.
+        /// </summary>
         [SerializeField] AudioSource source;
-        float pitch=.3f;
-
-        Color lastColor;
+        /// <summary>
+        /// Pitch value for the audio source.
+        /// </summary>
+        float pitch =.3f;
+        /// <summary>
+        /// Array of colors used for smooth transitions.
+        /// </summary>
         public Color[] colors = new Color[91];
+        /// <summary>
+        /// Number of colors in the array.
+        /// </summary>
         public int numberOfColors = 100;
-        public float smoothness = 0.01f; 
+        /// <summary>
+        /// Smoothness factor for color transitions.
+        /// </summary>
+        public float smoothness = 0.01f;
+        /// <summary>
+        /// Called when the script instance is being loaded.
+        /// </summary>
         private void Awake()
         {
             if (instance == null)
             {
                 instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else { 
                 Destroy(gameObject);
@@ -37,26 +75,38 @@ namespace Project2
             GenerateSmoothColorArray();
 
         }
+        /// <summary>
+        /// Called when the script is enabled.
+        /// </summary>
         private void OnEnable()
         {
             inputHandler.MouseClickAction += OnClick;
             spawner.SpawnedStack += OnSpawnedStack;
 
         }
-
+        /// <summary>
+        /// Called when the script is disabled.
+        /// </summary>
         private void OnDisable()
         {
             inputHandler.MouseClickAction -= OnClick;
             spawner.SpawnedStack -= OnSpawnedStack;
 
         }
-        public void OnSpawnedStack(Stack stack) {//hareket eden stack spawnlandiginda
+        /// <summary>
+        /// Called when a stack is spawned.
+        /// </summary>
+        /// <param name="stack">The spawned stack.</param>
+        public void OnSpawnedStack(Stack stack) {
             
           lastStack = spawner.GetPreviousStack(stack);
 
 
           
         }
+        /// <summary>
+        /// Called when the mouse is clicked.
+        /// </summary>
         private void OnClick()
         {
 
@@ -78,11 +128,21 @@ namespace Project2
                 spawner.GetLastStack().gameObject.SetActive(false);
 
             }
+
             DivideObject(a, x);
 
 
         }
+        /// <summary>
+        /// Gets the last spawned stack.
+        /// </summary>
+        /// <returns>The last spawned stack.</returns>
         public Stack GetLastStack() { return lastStack; }
+        /// <summary>
+        /// Divides the object based on intersection value.
+        /// </summary>
+        /// <param name="reference">The reference object.</param>
+        /// <param name="value">The intersection value.</param>
         private void DivideObject(GameObject refrence,float value)
         {
             bool pass = false;
@@ -137,7 +197,12 @@ namespace Project2
 
 
         }
-
+        /// <summary>
+        /// Checks the intersection value in the X-axis.
+        /// </summary>
+        /// <param name="obj1">The first object.</param>
+        /// <param name="obj2">The second object.</param>
+        /// <returns>The intersection value in the X-axis.</returns>
         float CheckXIntersection(GameObject obj1, GameObject obj2)
         {
 
@@ -153,7 +218,12 @@ namespace Project2
             return intersectionPercentage * sign;
         }
 
-
+        /// <summary>
+        /// Gets the position of the edge based on direction.
+        /// </summary>
+        /// <param name="meshRenderer">The mesh renderer of the object.</param>
+        /// <param name="direction">The direction of the edge.</param>
+        /// <returns>The position of the edge.</returns>
 
         private Vector3 GetPositionEdge(MeshRenderer meshRenderer, Direction direction)
         {
@@ -187,12 +257,20 @@ namespace Project2
 
             return position;
         }
-
+        /// <summary>
+        /// Gets the color at the specified index from the color array.
+        /// </summary>
+        /// <param name="index">The index of the color.</param>
+        /// <returns>The color at the specified index.</returns>
         public Color GetColor( int index) {
           
             return colors[index%colors.Length];
         
         }
+
+        /// <summary>
+        /// Generates a smooth color array for transitions.
+        /// </summary>
         void GenerateSmoothColorArray()
         {
             Color randomColor= new Color(Random.value + .1f, Random.value + .1f, Random.value + .1f);

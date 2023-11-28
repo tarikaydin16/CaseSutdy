@@ -61,9 +61,9 @@ namespace Project2
         private void StartTouch(InputAction.CallbackContext ctx)
         {
             if (gameManager.IsGameFinished || Mathf.Abs(Time.time-lastTouchTime)<0.1f) return;
-            // Read the touch position from the TouchPosition control
             Vector2 touchPos = touchControls.Touch.TouchPosition.ReadValue<Vector2>();
             MouseClickAction?.Invoke();
+            print("Click");
             lastTouchTime = Time.time;
 
 

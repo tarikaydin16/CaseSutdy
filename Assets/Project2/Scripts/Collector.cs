@@ -1,16 +1,27 @@
-using Project2;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-
-public class Collector : MonoBehaviour
+namespace Project2
 {
-    [Inject] StackSpawner spawner;
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// Collector class responsible for collecting game objects and returning them to the StackSpawner's object pool.
+    /// </summary>
+    public class Collector : MonoBehaviour
     {
-        print(other.name);
-        spawner.ReturnObjectToPool(other.gameObject);
+        /// <summary>
+        /// Reference to the StackSpawner injected via Zenject.
+        /// </summary>
+        [Inject] StackSpawner spawner;
+        /// <summary>
+        /// Called when another collider enters the trigger zone.
+        /// </summary>
+        /// <param name="other">The collider that enters the trigger zone.</param>
+        private void OnTriggerEnter(Collider other)
+        {
+            // Return the collided game object to the StackSpawner's object pool
+            spawner.ReturnObjectToPool(other.gameObject);
 
+        }
     }
 }
